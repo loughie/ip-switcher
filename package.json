@@ -1,0 +1,33 @@
+{
+  "name": "ip_switcher",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "aphrodite": "^2.1.0",
+    "elevator": "^2.2.3",
+    "material-ui": "^1.0.0-beta.38",
+    "network": "^0.4.1",
+    "node-windows": "^0.1.14",
+    "nodemon": "^1.17.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-input-mask": "^1.2.2",
+    "react-scripts": "1.1.1",
+    "runas": "^3.1.1",
+    "runas-win": "^2.1.0",
+    "windows-elevate": "^1.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "electron-dev": "nodemon --watch * --exec electron ."
+  },
+  "devDependencies": {
+    "electron": "^1.8.4",
+    "prettier": "1.11.1"
+  },
+  "main": "./electron/electron.js"
+}
