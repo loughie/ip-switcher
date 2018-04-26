@@ -79,6 +79,7 @@ class Container extends Component {
           saveConfig={this._saveConfig}
           deleteConfig={this._deleteConfig}
           loadedConfig={this.state.loadedConfig}
+          selectedAdapter={this.state.selectedAdapter || this.props.currentAdapter.name}
         />
       </div>
     );

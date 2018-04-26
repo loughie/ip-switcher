@@ -6,7 +6,9 @@ const styles = StyleSheet.create({
   formContainer: {
     width: '100%',
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
     padding: '50px'
   },
   formHolder: {
@@ -41,10 +43,10 @@ class SwitchForm extends Component {
   }
 
   // Saves form values to state on the fly
-  _setIp = (value) => { this.setState({ ipAddress: value }) }
-  _setSubnet = (value) => { this.setState({ subnet: value }) }
-  _setGateway = (value) => { this.setState({ gateway: value }) }
-  _setSaveName = (value) => { this.setState({ configName: value }) }
+  _setIp = (val) => { this.setState({ ipAddress: val }) }
+  _setSubnet = (val) => { this.setState({ subnet: val }) }
+  _setGateway = (val) => { this.setState({ gateway: val }) }
+  _setSaveName = (val) => { this.setState({ configName: val }) }
 
   // Submits form with object
   _submitForm = (settings) => {
@@ -85,6 +87,7 @@ class SwitchForm extends Component {
 
     return (
       <div className={css(styles.formContainer)}>
+        <h1>You are changing the IP configuration for the {this.props.selectedAdapter} adapter.</h1>
         <div className={css(styles.formHolder)}>
           {(this.state.isSaving || this.state.loadedConfig) &&
             <Input
