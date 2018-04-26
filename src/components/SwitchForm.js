@@ -27,7 +27,7 @@ class SwitchForm extends Component {
     isSaving: false,
     loadedConfig: null,
   }
-
+  // If a saved IP config is needed, the state of this form will reflect that
   componentWillReceiveProps(nextProps) {
     if (nextProps.loadedConfig) {
       this.setState({
@@ -40,6 +40,7 @@ class SwitchForm extends Component {
     }
   }
 
+  // Saves form values to state on the fly
   _setIp = (value) => { this.setState({ ipAddress: value }) }
   _setSubnet = (value) => { this.setState({ subnet: value }) }
   _setGateway = (value) => { this.setState({ gateway: value }) }
@@ -50,6 +51,7 @@ class SwitchForm extends Component {
     this.props.setStatic(settings);
   }
 
+  // Toggles between setting and saving mode.
   _toggleSaveMode = () => {
     this.setState({
       isSaving: !this.state.isSaving,
@@ -66,7 +68,7 @@ class SwitchForm extends Component {
   }
 
   render() {
-    const { ipAddress, gateway, subnet, configName, isSaving } = this.state
+    const { ipAddress, gateway, subnet, configName } = this.state
 
     const interfaceSettings = [
       ipAddress,
