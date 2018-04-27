@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import StoredConfigs from './StoredConfigs';
+import DeletePopup from './DeletePopup';
 
 const styles = StyleSheet.create({
   sideNav: {
@@ -37,6 +38,7 @@ class SideNav extends Component {
     super(props);
     this.state = {
       currentAdapter: props.currentAdapter.name,
+      isDeleting: false,
     }
   }
   // Changes adapter user wants to change IP for. Changes local state for button style toggle.
@@ -62,6 +64,10 @@ class SideNav extends Component {
     )
   }
 
+  _toggleDeletePop = () => {
+    this.setState({ isDeleting: !this.state.isDeleting })
+  }
+
   render() {
     return (
       <div className={css(styles.sideNav)}>
@@ -71,8 +77,12 @@ class SideNav extends Component {
         <div className={css(styles.configsHolder)}>
           <StoredConfigs
             loadConfig={this.props.loadConfig}
+            showDeletePop={this._toggleDeletePop}
           />
         </div>
+        <DeletePopup
+          isDeleting={this.state.isDeleting}
+        />
       </div>
     );
   }
