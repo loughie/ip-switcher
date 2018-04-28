@@ -39,6 +39,7 @@ class SideNav extends Component {
     this.state = {
       currentAdapter: props.currentAdapter.name,
       isDeleting: false,
+      configToDelete: null,
     }
   }
   // Changes adapter user wants to change IP for. Changes local state for button style toggle.
@@ -64,8 +65,11 @@ class SideNav extends Component {
     )
   }
 
-  _toggleDeletePop = () => {
-    this.setState({ isDeleting: !this.state.isDeleting })
+  _toggleDeletePop = (configToDelete) => {
+    this.setState({
+      isDeleting: !this.state.isDeleting,
+      configToDelete: configToDelete
+    })
   }
 
   render() {
@@ -77,12 +81,16 @@ class SideNav extends Component {
         <div className={css(styles.configsHolder)}>
           <StoredConfigs
             loadConfig={this.props.loadConfig}
-            showDeletePop={this._toggleDeletePop}
+            deleteConfirm={this._toggleDeletePop}
           />
         </div>
-        <DeletePopup
-          isDeleting={this.state.isDeleting}
-        />
+        {this.state.isDeleting &&
+          <DeletePopup
+            configToDelete={this.state.configToDelete}
+            deleteConfig={this.props.deleteConfig}
+            closePopup={this._toggleDeletePop}
+          />
+        }
       </div>
     );
   }

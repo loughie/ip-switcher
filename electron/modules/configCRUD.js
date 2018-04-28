@@ -1,24 +1,25 @@
 const fs = require('fs');
 
 module.exports = {
-  // Command sent to powershell to set selected adapter to DHCP
+  // Reads JSON file and creates new config entries
   create: (entry) => {
     fs.readFile('src/configs.json', (err, data) => {
-      const test = JSON.parse(data)
-      test.push(entry)
+      const configs = JSON.parse(data)
+      configs.push(entry)
 
-      fs.writeFile('src/configs.json', JSON.stringify(test, null, 2))
+      fs.writeFile('src/configs.json', JSON.stringify(configs, null, 2))
     })
   },
-  delete: (entry) => {
-    fs.readFile('configs.json', (err, data) => {
-      const test = JSON.parse(data)
+  // Reads JSON file, removes the deleted config and pushes new list back to file
+  delete: (config) => {
+    fs.readFile('src/configs.json', (err, data) => {
+      const configs = JSON.parse(data)
 
-      const withoutRemoved = test.configs.filter((e) => {
-        return e.name !== entry.name
+      const notDeleted = configs.filter((e) => {
+        return e.name !== config.name
       })
 
-      fs.writeFile('src/configs.json', JSON.stringify(withoutRemoved, null, 2))
+      fs.writeFile('src/configs.json', JSON.stringify(notDeleted, null, 2))
     })
   },
 }

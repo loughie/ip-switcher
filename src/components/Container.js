@@ -50,13 +50,7 @@ class Container extends Component {
     ipcRenderer.send('save-config-entry', config)
   }
 
-  _deleteConfig = (name, ip, gateway, subnet) => {
-    const config = {
-      name: name,
-      ip: ip,
-      gateway: gateway,
-      subnet: subnet
-    }
+  _deleteConfig = (config) => {
     ipcRenderer.send('delete-config-entry', config)
   }
 
@@ -72,12 +66,12 @@ class Container extends Component {
           adapterList={this.props.adapterList}
           changeAdapter={this._changeAdapter}
           loadConfig={this._loadConfig}
+          deleteConfig={this._deleteConfig}
         />
         <SwitchForm
           setDHCP={this._setDHCP}
           setStatic={this._setStatic}
           saveConfig={this._saveConfig}
-          deleteConfig={this._deleteConfig}
           loadedConfig={this.state.loadedConfig}
           selectedAdapter={this.state.selectedAdapter || this.props.currentAdapter.name}
         />

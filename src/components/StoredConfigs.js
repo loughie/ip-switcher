@@ -28,7 +28,7 @@ export default class StoredConfigs extends React.Component {
   }
 
   _deleteConfirm = (config) => {
-    this.props.showDeletePop(config)
+    this.props.deleteConfirm(config)
   }
 
   render() {
@@ -43,7 +43,7 @@ export default class StoredConfigs extends React.Component {
               </h2>
               <BinIcon
                 className={css(styles.listItemIcon)}
-                onClick={() => { this._deleteConfirm(config.name) }}
+                onClick={() => { this._deleteConfirm(config) }}
               />
             </li>
           )

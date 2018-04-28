@@ -65,10 +65,6 @@ class SwitchForm extends Component {
     this.props.saveConfig(this.state.configName, this.state.ipAddress, this.state.gateway, this.state.subnet);
   }
 
-  _deleteConfig = () => {
-    this.props.deleteConfig(this.state.configName, this.state.ipAddress, this.state.gateway, this.state.subnet);
-  }
-
   render() {
     const { ipAddress, gateway, subnet, configName } = this.state
 
@@ -116,7 +112,6 @@ class SwitchForm extends Component {
               <button onClick={() => { this._submitForm(interfaceSettings) }}>Submit</button>
               <button onClick={this.props.setDHCP}>Set DHCP</button>
               <button onClick={this._toggleSaveMode}>Save</button>
-              <button onClick={this._deleteConfig}>Delete</button>
             </div>
           }
           {(this.state.isSaving) &&

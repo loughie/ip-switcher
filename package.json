@@ -27,7 +27,7 @@
     "electron-dev": "nodemon --watch * --exec electron ."
   },
   "devDependencies": {
-    "electron": "^1.8.4",
+    "electron": "^1.8.6",
     "prettier": "1.11.1"
   },
   "main": "./electron/electron.js"
