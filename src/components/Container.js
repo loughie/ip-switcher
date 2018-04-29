@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
 });
 
 class Container extends Component {
-
   state = {
     selectedAdapter: null,
     adapterList: null,

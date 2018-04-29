@@ -36,6 +36,7 @@ export default class StoredConfigs extends React.Component {
       <ul className={css(styles.holder)}>
         <h2>Configurations</h2>
         {configs.map((config) => {
+          console.log(config);
           return (
             <li className={css(styles.listItem)}>
               <h2 onDoubleClick={() => { this._loadConfig(config) }}>

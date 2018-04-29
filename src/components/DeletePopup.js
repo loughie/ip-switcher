@@ -75,7 +75,7 @@ export default class DeletePopup extends Component {
       <div className={css(styles.holder)}>
         <div className={css(styles.popup)}>
           <div className={css(styles.bar)}>
-            <h1>Delete {this.props.configToDelete.name}? </h1>
+            <h1>Delete {this.props.configToDelete.name}?</h1>
             <ExitIcon
               className={css(styles.exit)}
               onClick={() => { this._closePopup() }}

@@ -2,10 +2,11 @@ const fs = require('fs');
 
 module.exports = {
   // Reads JSON file and creates new config entries
-  create: (entry) => {
+  create: (config) => {
     fs.readFile('src/configs.json', (err, data) => {
       const configs = JSON.parse(data)
-      configs.push(entry)
+
+      configs.push(config)
 
       fs.writeFile('src/configs.json', JSON.stringify(configs, null, 2))
     })
