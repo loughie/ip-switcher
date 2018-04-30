@@ -32,24 +32,31 @@ export default class StoredConfigs extends React.Component {
   }
 
   render() {
+    console.log(configs.length);
     return (
-      <ul className={css(styles.holder)}>
+      <div>
         <h2>Configurations</h2>
-        {configs.map((config) => {
-          console.log(config);
-          return (
-            <li className={css(styles.listItem)}>
-              <h2 onDoubleClick={() => { this._loadConfig(config) }}>
-                {config.name}
-              </h2>
-              <BinIcon
-                className={css(styles.listItemIcon)}
-                onClick={() => { this._deleteConfirm(config) }}
-              />
-            </li>
-          )
-        })}
-      </ul>
+        {configs.length ?
+          <ul className={css(styles.holder)}>
+            {configs.map((config) => {
+              console.log(config);
+              return (
+                <li className={css(styles.listItem)}>
+                  <h2 onDoubleClick={() => { this._loadConfig(config) }}>
+                    {config.name}
+                  </h2>
+                  <BinIcon
+                    className={css(styles.listItemIcon)}
+                    onClick={() => { this._deleteConfirm(config) }}
+                  />
+                </li>
+              )
+            })}
+          </ul>
+          :
+          <p>You have no saved configs!</p>
+        }
+      </div>
     );
   }
 }
