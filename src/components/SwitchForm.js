@@ -7,20 +7,56 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    padding: '50px'
+    justifyContent: 'center',
+    padding: '20px 50px'
+  },
+  tip: {
+    width: '100%',
+    fontFamily: 'GothamBold',
+    position: 'relative'
+  },
+  tipText: {
+    marginLeft: '15%'
+  },
+  bright: {
+    fontSize: '1.6em',
+    color: '#81c784',
+    textShadow: '#000 0px 0px 2px;'
   },
   formHolder: {
+    margin: '5% 0',
     width: '50%',
     display: 'flex',
     flexWrap: 'wrap',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonHolder: {
+    width: '50%',
+    display: 'flex',
+    justifyContent: 'flex-end'
+  },
+  button: {
+    backgroundColor: '#9E9E9E',
+    borderRadius: '3px',
+    width: '120px',
+    padding: '7px',
+    fontFamily: 'GothamBold',
+    color: '#29353a',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+  },
+  buttonDHCP: {
+    marginRight: 'auto'
+  },
+  buttonSubmit: {
+    backgroundColor: '#4CAF50',
+    color: '#fff'
   }
 });
 
 class SwitchForm extends Component {
-
   state = {
     ipAddress: null,
     gateway: null,
@@ -46,27 +82,14 @@ class SwitchForm extends Component {
   _setIp = (val) => { this.setState({ ipAddress: val }) }
   _setSubnet = (val) => { this.setState({ subnet: val }) }
   _setGateway = (val) => { this.setState({ gateway: val }) }
-  _setSaveName = (val) => { this.setState({ configName: val }) }
 
   // Submits form with object
   _submitForm = (settings) => {
     this.props.setStatic(settings);
   }
 
-  // Toggles between setting and saving mode.
-  _toggleSaveMode = () => {
-    this.setState({
-      isSaving: !this.state.isSaving,
-      loadedConfig: null,
-    })
-  }
-
-  _submitSave = () => {
-    this.props.saveConfig(this.state.configName, this.state.ipAddress, this.state.gateway, this.state.subnet);
-  }
-
   render() {
-    const { ipAddress, gateway, subnet, configName } = this.state
+    const { ipAddress, gateway, subnet } = this.state
 
     const interfaceSettings = [
       ipAddress,
@@ -74,24 +97,17 @@ class SwitchForm extends Component {
       subnet,
     ]
 
-    const saveInterface = [
-      configName,
-      ...interfaceSettings
-    ]
-
-    console.log(this.state.ipAddress);
-
     return (
       <div className={css(styles.formContainer)}>
-        <h1>You are changing the IP configuration for the {this.props.selectedAdapter} adapter.</h1>
+        <div className={css(styles.tip)}>
+          <h1 className={css(styles.tipText)}>
+            <u>
+              You are changing the IP configuration for:
+            </u>
+              <span className={css(styles.bright)}> {this.props.selectedAdapter}</span>
+          </h1>
+        </div>
         <div className={css(styles.formHolder)}>
-          {(this.state.isSaving || this.state.loadedConfig) &&
-            <Input
-              label="Config Name"
-              setValue={this._setSaveName}
-              value={this.state.configName}
-            />
-          }
           <Input
             label="IP Address"
             setValue={this._setIp}
@@ -107,19 +123,20 @@ class SwitchForm extends Component {
             setValue={this._setSubnet}
             value={this.state.subnet}
           />
-          {!this.state.isSaving &&
-            <div>
-              <button onClick={() => { this._submitForm(interfaceSettings) }}>Submit</button>
-              <button onClick={this.props.setDHCP}>Set DHCP</button>
-              <button onClick={this._toggleSaveMode}>Save</button>
-            </div>
-          }
-          {(this.state.isSaving) &&
-            <div>
-              <button onClick={this._toggleSaveMode}>Cancel</button>
-              <button onClick={this._submitSave}>Save Config</button>
-            </div>
-          }
+        </div>
+        <div className={css(styles.buttonHolder)}>
+          <button
+            className={css(styles.button, styles.buttonDHCP)}
+            onClick={this.props.setDHCP}
+          >
+            SET DHCP
+          </button>
+          <button
+            className={css(styles.button, styles.buttonSubmit)}
+            onClick={() => { this._submitForm(interfaceSettings) }}
+          >
+            SUBMIT
+          </button>
         </div>
       </div>
     );

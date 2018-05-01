@@ -4,6 +4,7 @@ import { StyleSheet, css } from 'aphrodite';
 const styles = StyleSheet.create({
   inputHolder: {
     display: 'flex',
+    width: '100%',
     flexDirection: 'column',
     margin: '0 0 10px 0'
   },
