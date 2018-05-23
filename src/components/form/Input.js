@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
   label: {
     margin: '10px 0',
     fontFamily: 'GothamBold',
-    fontSize: 20
+    fontSize: 20,
+    color: '#29353a'
   },
   input: {
     padding: '10px',

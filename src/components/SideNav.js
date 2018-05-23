@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import AddIcon from 'react-icons/lib/md/add-circle';
 import StoredConfigs from './StoredConfigs';
-import DeletePopup from './DeletePopup';
+import Popup from './Popup';
+import Input from './form/Input'
 
 const styles = StyleSheet.create({
   sideNav: {
     backgroundColor: '#29353a',
+    display: 'flex',
     width: '30%',
     height: '100%',
     color: '#fff',
@@ -40,6 +43,7 @@ class SideNav extends Component {
       currentAdapter: props.currentAdapter.name,
       isDeleting: false,
       configToDelete: null,
+      isAddingNewConfig: false,
     }
   }
   // Changes adapter user wants to change IP for. Changes local state for button style toggle.
@@ -47,6 +51,11 @@ class SideNav extends Component {
     this.setState({ currentAdapter: adapter })
     this.props.changeAdapter(adapter)
   }
+
+  _toggleAddNewConfig = () => {
+    this.setState({ isAddingNewConfig: !this.state.isAddingNewConfig })
+  }
+
   // Filters out bluetooth adapters and maps buttons for ethernet and Wi-Fi.
   // TODO: Research other types of adapter that may need filtering due to non ip requirements.
   _mapAdapterSelects = () => {
@@ -65,11 +74,16 @@ class SideNav extends Component {
     )
   }
 
+  // 
   _toggleDeletePop = (configToDelete) => {
     this.setState({
       isDeleting: !this.state.isDeleting,
       configToDelete: configToDelete
     })
+  }
+
+  _deleteConfig = () => {
+    this.props.deleteConfig(this.state.configToDelete)
   }
 
   render() {
@@ -84,12 +98,47 @@ class SideNav extends Component {
             deleteConfirm={this._toggleDeletePop}
           />
         </div>
+        <div className={css(styles.addNewConfig)}>
+          <AddIcon
+            onClick={() => { this._toggleAddNewConfig() }}
+          />
+        </div>
         {this.state.isDeleting &&
-          <DeletePopup
-            configToDelete={this.state.configToDelete}
-            deleteConfig={this.props.deleteConfig}
+          <Popup
+            popupTitle={`Delete ${this.state.configToDelete.name}?`}
+            buttonText="Confirm"
+            popupConfirm={this._deleteConfig}
             closePopup={this._toggleDeletePop}
           />
+        }
+        {this.state.isAddingNewConfig &&
+          <Popup
+            popupTitle="Save New Config"
+            buttonText="Save Config"
+            popupConfirm={this._saveConfig}
+            closePopup={this._toggleAddNewConfig}
+          >
+            <Input
+              label="Config Name"
+              setValue={this._setName}
+              value={this.state.configName}
+            />
+            <Input
+              label="IP Address"
+              setValue={this._setIp}
+              value={this.state.ipAddress}
+            />
+            <Input
+              label="Gateway"
+              setValue={this._setGateway}
+              value={this.state.gateway}
+            />
+            <Input
+              label="Subnet"
+              setValue={this._setSubnet}
+              value={this.state.subnet}
+            />
+          </Popup>
         }
       </div>
     );

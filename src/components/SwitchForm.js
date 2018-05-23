@@ -13,8 +13,7 @@ const styles = StyleSheet.create({
   },
   tip: {
     width: '100%',
-    fontFamily: 'GothamBold',
-    position: 'relative'
+    fontFamily: 'GothamBold'
   },
   tipText: {
     marginLeft: '15%'

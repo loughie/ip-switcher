@@ -21,12 +21,14 @@ const styles = StyleSheet.create({
     position: 'fixed'
   },
   popup: {
-    backgroundColor: '#fff',
+    backgroundColor: '#e0e1e0',
     width: 400,
-    height: 150,
     borderRadius: '3px',
     zIndex: 1000,
     boxShadow: '0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22)',
+  },
+  inner: {
+    padding: '15px',
   },
   bar: {
     backgroundColor: '#81c784',
@@ -36,20 +38,22 @@ const styles = StyleSheet.create({
     fontFamily: 'GothamBold',
     borderRadius: '3px 3px 0 0'
   },
-  confirmText: {
-    color: '#29353a',
-    fontFamily: 'GothamBold',
-    fontSize: '1em'
+  buttonHolder: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: '12px 0'
   },
   button: {
-    width: '75px',
+    width: '100px',
     padding: '5px 0',
     borderRadius: '3px',
     fontFamily: 'GothamBold',
-    color: '#fff'
+    color: '#fff',
+    marginLeft: 'auto',
   },
   buttonCancel: {
-    backgroundColor: '#e53935'
+    backgroundColor: '#e53935',
+    margin: '0 10px 0 0'
   },
   buttonConfirm: {
     backgroundColor: '#43A047'
@@ -67,34 +71,36 @@ export default class DeletePopup extends Component {
     this.props.closePopup()
   }
   // Deletes selected config
-  _confirmDelete = (config) => {
-    this.props.deleteConfig(config)
+  _popupConfirm = () => {
+    this.props.popupConfirm()
   }
   render() {
     return (
       <div className={css(styles.holder)}>
         <div className={css(styles.popup)}>
           <div className={css(styles.bar)}>
-            <h1>Delete {this.props.configToDelete.name}?</h1>
+            <h1>{this.props.popupTitle}</h1>
             <ExitIcon
               className={css(styles.exit)}
               onClick={() => { this._closePopup() }}
             />
           </div>
-          <div>
-            <h2 className={css(styles.confirmText)}>Are you sure?</h2>
-            <button
-              className={css(styles.button, styles.buttonConfirm)}
-              onClick={() => { this._confirmDelete(this.props.configToDelete) }}
-            >
-              Confirm
-            </button>
-            <button
-              className={css(styles.button, styles.buttonCancel)}
-              onClick={() => { this._closePopup() }}
-            >
-                Cancel
-            </button>
+          <div className={css(styles.inner)}>
+            {this.props.children}
+            <div className={css(styles.buttonHolder)} >
+              <button
+                className={css(styles.button, styles.buttonCancel)}
+                onClick={() => { this._closePopup() }}
+              >
+                  Cancel
+              </button>
+              <button
+                className={css(styles.button, styles.buttonConfirm)}
+                onClick={() => { this._popupConfirm() }}
+              >
+                {this.props.buttonText}
+              </button>
+            </div>
           </div>
         </div>
         <div
